@@ -1,3 +1,3 @@
 export const Header = () => (
-  <h1>Bem vindo ao Movies List</h1>
+    <h1>Bem-vido(a) ao Movies List</h1>
 )
