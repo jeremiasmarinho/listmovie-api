@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
-import { addMovie } from "../store/actions/movies";
+import { addMovie, removeMovie } from "../store/actions/movies";
 
 export const Movie = ({ movie }) => {
     const dispatch = useDispatch();
+    const favorites = useSelector(state => state.favorites); 
     return (
     <div className="movie-item">
         <div>
@@ -12,7 +13,12 @@ export const Movie = ({ movie }) => {
         <div className="movie-excerpt">
             <h3>{movie.title}</h3>
             <Link to={`/movie/${movie.id}`} className="btn btn-primary">Ver detalhes</Link>
-            <button className="btn btn-secondary" onClick={() => dispatch(addMovie(movie))}>Adicionar aos favoritos</button>
+            {
+                favorites.movies.find((m) => m.id == movie.id) 
+                ? <button className="btn btn-danger" onClick={() => dispatch(removeMovie(movie))}>Remover favoritos</button>
+                : <button className="btn btn-secondary" onClick={() => dispatch(addMovie(movie))}>Adicionar aos favoritos</button>
+
+            }
         </div>
     </div>
 )};
